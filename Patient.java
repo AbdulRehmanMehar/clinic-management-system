@@ -1,9 +1,10 @@
+import java.util.Arrays;
+
 public class Patient extends Role {
     private String disease;
 
     public Patient(Clinic clinic, Person person, String disease) {
         super(clinic, person);
-        this.setClinic(clinic);
         this.setDisease(disease);
         clinic.addPatient(this);
     }
@@ -22,7 +23,7 @@ public class Patient extends Role {
     }
 
     public Appointment[] getAppointments() {
-        return (Appointment[]) super.appointments.toArray();
+        return Arrays.copyOf(super.appointments.toArray(), super.appointments.size(), Appointment[].class);
     }
 
     public String getRole() {
