@@ -23,9 +23,12 @@ public abstract class Role {
         return this.appointments;
     }
 
+    public void cancelAppointment(Appointment appointment) {
+        this.getClinic().removeAppointment(appointment);
+    }
+
     public abstract String getRole();
     
     public abstract void addAppointment(Appointment appointment);
 
-    public abstract void cancelAppointment(Appointment appointment);
 }

@@ -19,13 +19,6 @@ public class Patient extends Role {
             super.appointments.add(appointment);
     }
 
-    @Override
-    public void cancelAppointment(Appointment appointment) {
-        if (super.appointments.remove(appointment)) {
-            this.getClinic().removeAppointment(appointment);
-        }
-    }
-
     public String getDisease() {
         return this.disease;
     }

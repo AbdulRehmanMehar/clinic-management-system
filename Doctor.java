@@ -19,28 +19,23 @@ public class Doctor extends Role {
 
     @Override
     public void addAppointment(Appointment appointment) {
-        boolean available = false;
-        Iterator<Availability> itr = this.availabilities.iterator();
+        if(!super.appointments.contains(appointment)) {
+            boolean available = false;
+            Iterator<Availability> itr = this.availabilities.iterator();
 
-        while(itr.hasNext()) {
-            Availability availability = itr.next();
-            if(
-                availability.getDay().matches(appointment.getDay()) &&
-                availability.getTimeIn() - appointment.getTimeStart() > 0 &&
-                availability.getTimeOut() - appointment.getTimeEnd() < 0
-            ) available = true;
+            while(itr.hasNext()) {
+                Availability availability = itr.next();
+                if(
+                    availability.getDay().matches(appointment.getDay()) &&
+                    availability.getTimeIn() - appointment.getTimeStart() > 0 &&
+                    availability.getTimeOut() - appointment.getTimeEnd() < 0
+                ) available = true;
+            }
+
+            if (available) 
+                super.appointments.add(appointment);
         }
 
-        if (available && !super.appointments.contains(appointment)) 
-            super.appointments.add(appointment);
-
-    }
-
-    @Override
-    public void cancelAppointment(Appointment appointment) {
-        if (super.appointments.remove(appointment)) {
-            this.getClinic().removeAppointment(appointment);
-        }
     }
 
     public void addAvailability(Availability availability) {
