@@ -10,7 +10,10 @@ public class Medicine {
     }
 
     public void setAppointment(Appointment appointment) {
-        this.appointment = appointment;
+        if (appointment != null) {
+            this.appointment = appointment;
+            appointment.addMedicine(this);
+        }
     }
 
     public void setName(String name) {
