@@ -1,5 +1,6 @@
 import java.util.Date;
 import java.util.List;
+import java.util.Arrays;
 import java.util.ArrayList;
 import java.text.SimpleDateFormat;
 
@@ -10,17 +11,16 @@ public class Appointment {
     private Clinic clinic;
     private Doctor doctor;
     private Patient patient;
-    private SimpleDateFormat sdf;
     private List<Medicine> medicines;
+    private SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
 
-    public Appointment(Clinic clinic, Doctor doctor, Person person, String day, String timeStart, String timeEnd) {
-        this.setClinic(clinic);
-        this.setDoctor(doctor);
-        this.setPatient(patient);
+    public Appointment(Clinic clinic, Doctor doctor, Patient patient, String day, String timeStart, String timeEnd) {
         this.setDay(day);
         this.setTimeStart(timeStart);
         this.setTimeEnd(timeEnd);
-        this.sdf = new SimpleDateFormat("HH:mm");
+        this.setClinic(clinic);
+        this.setDoctor(doctor);
+        this.setPatient(patient);
         this.medicines = new ArrayList<Medicine>();
     }
 
@@ -36,6 +36,7 @@ public class Appointment {
 
     public void setPatient(Patient patient) {
         this.patient = patient;
+        patient.addAppointment(this);
     }
 
     public void setDay(String day) {
@@ -66,7 +67,7 @@ public class Appointment {
     }
 
     public Medicine[] getMedicines() {
-        return (Medicine[]) this.medicines.toArray();
+        return Arrays.copyOf(this.medicines.toArray(), this.medicines.size(), Medicine[].class);
     }
 
     public Doctor getDoctor() {
@@ -74,7 +75,7 @@ public class Appointment {
     }
 
     public Patient getPatient() {
-        return this.pateient;
+        return this.patient;
     }
 
     public Clinic getClinic() {
