@@ -1,18 +1,24 @@
+import java.util.Date;
+import java.text.SimpleDateFormat;
+
 public class Availability {
     private String day;
-    private String timeIn;
-    private String timeOut;
+    private Date timeIn;
+    private Date timeOut;
     private Doctor doctor;
+    private SimpleDateFormat sdf;
 
     public Availability(Doctor doctor, String day, String timeIn, String timeOut) {
         this.setDay(day);
         this.setDoctor(doctor);
         this.setTimeIn(timeIn);
         this.setTimeOut(timeOut);
+        this.sdf = new SimpleDateFormat("HH:mm");
     }
 
     public void setDoctor(Doctor doctor) {
         this.doctor = doctor;
+        doctor.addAvailability(this);
     }
 
     public void setDay(String day) {
@@ -20,11 +26,19 @@ public class Availability {
     }
 
     public void setTimeIn(String timeIn) {
-        this.timeIn = timeIn;
+        try{
+            this.timeIn = this.sdf.parse(timeIn);
+        }catch(Exception e) {
+            System.out.println("Time Date parse Exception " + e + " in setTimeIn => Availability.");
+        }
     }
 
     public void setTimeOut(String timeOut) {
-        this.timeOut = timeOut;
+        try{
+            this.timeOut = this.sdf.parse(timeOut);
+        }catch(Exception e) {
+            System.out.println("Time Date parse Exception " + e + " in setTimeOut => Availability.");
+        }
     }
 
     public Doctor getDoctor() {
@@ -35,12 +49,12 @@ public class Availability {
         return this.day;
     }
 
-    public String getTimeIn() {
-        return this.timeIn;
+    public long getTimeIn() {
+        return this.timeIn.getTime();
     }
 
-    public String getTimeOut() {
-        return this.timeOut;
+    public long getTimeOut() {
+        return this.timeOut.getTime();
     }
 
 }
