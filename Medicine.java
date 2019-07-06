@@ -4,7 +4,9 @@ public class Medicine {
     private Appointment appointment;
 
     public Medicine(Appointment appointment, String name, String dosage) {
-
+        this.setAppointment(appointment);
+        this.setName(name);
+        this.setDosage(dosage);
     }
 
     public void setAppointment(Appointment appointment) {
