@@ -1,4 +1,5 @@
 import java.util.List;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.ArrayList;
 
@@ -9,7 +10,6 @@ public class Doctor extends Role {
     public Doctor(Clinic clinic, Person person, String specialization) {
         super(clinic, person);
         this.setSpecialization(specialization);
-        super.appointments = new ArrayList<Appointment>();
         this.availabilities = new ArrayList<Availability>();
         clinic.addDoctor(this);
     }
@@ -42,11 +42,11 @@ public class Doctor extends Role {
     }
 
     public Appointment[] getAppointments() {
-        return (Appointment[]) super.appointments.toArray();
+        return Arrays.copyOf(super.appointments.toArray(), super.appointments.size(), Appointment[].class);
     }
 
     public Availability[] getAvailabilities() {
-        return (Availability[]) this.availabilities.toArray();
+        return Arrays.copyOf(this.availabilities.toArray(), this.availabilities.size(), Availability[].class);
     }
 
     public String getSpecialization() {
