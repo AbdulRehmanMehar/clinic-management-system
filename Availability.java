@@ -6,14 +6,13 @@ public class Availability {
     private Date timeIn;
     private Date timeOut;
     private Doctor doctor;
-    private SimpleDateFormat sdf;
+    private SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
 
     public Availability(Doctor doctor, String day, String timeIn, String timeOut) {
         this.setDay(day);
         this.setDoctor(doctor);
         this.setTimeIn(timeIn);
         this.setTimeOut(timeOut);
-        this.sdf = new SimpleDateFormat("HH:mm");
     }
 
     public void setDoctor(Doctor doctor) {
