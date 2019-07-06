@@ -1,20 +1,37 @@
+import java.util.Date;
+import java.util.List;
+import java.util.ArrayList;
+import java.text.SimpleDateFormat;
+
 public class Appointment {
     private String day;
+    private Date timeEnd;
+    private Date timeStart;
+    private Clinic clinic;
     private Doctor doctor;
-    private String timeEnd;
-    private String timeStart;
     private Patient patient;
+    private SimpleDateFormat sdf;
+    private List<Medicine> medicines;
 
-    public Appointment(Doctor doctor, Person person, String day, String timeStart, String timeEnd) {
+    public Appointment(Clinic clinic, Doctor doctor, Person person, String day, String timeStart, String timeEnd) {
+        this.setClinic(clinic);
         this.setDoctor(doctor);
         this.setPatient(patient);
         this.setDay(day);
         this.setTimeStart(timeStart);
         this.setTimeEnd(timeEnd);
+        this.sdf = new SimpleDateFormat("HH:mm");
+        this.medicines = new ArrayList<Medicine>();
+    }
+
+    public void setClinic(Clinic clinic) {
+        this.clinic = clinic;
+        clinic.addAppointment(this);
     }
 
     public void setDoctor(Doctor doctor) {
         this.doctor = doctor;
+        doctor.addAppointment(this);
     }
 
     public void setPatient(Patient patient) {
@@ -26,11 +43,30 @@ public class Appointment {
     }
 
     public void setTimeStart(String timeStart) {
-        this.timeStart = timeStart;
+        try{
+            this.timeStart = this.sdf.parse(timeStart);
+        }catch(Exception e) {
+            System.out.println("Time Date parse Exception " + e + " in setTimeStart => Appointment.");
+        }
     }
 
     public void setTimeEnd(String timeEnd) {
-        this.timeEnd = timeEnd;
+        try{
+            this.timeEnd = this.sdf.parse(timeEnd);
+        }catch(Exception e) {
+            System.out.println("Time Date parse Exception " + e + " in setTimeEnd => Appointment.");
+        }
+    }
+
+    public void addMedicine(Medicine medicine) {
+        if (
+            medicine != null &&
+            !this.medicines.contains(medicine)
+        ) this.medicines.add(medicine);
+    }
+
+    public Medicine[] getMedicines() {
+        return (Medicine[]) this.medicines.toArray();
     }
 
     public Doctor getDoctor() {
@@ -41,17 +77,20 @@ public class Appointment {
         return this.pateient;
     }
 
+    public Clinic getClinic() {
+        return this.clinic;
+    }
+
     public String getDay() {
         return this.day;
     }
 
-    public String getTimeStart() {
-        return this.timeStart;
+    public long getTimeStart() {
+        return this.timeStart.getTime();
     }
 
-    public String getTimeEnd() {
-        return this.timeEnd;
+    public long getTimeEnd() {
+        return this.timeEnd.getTime();
     }
-
 
 }
