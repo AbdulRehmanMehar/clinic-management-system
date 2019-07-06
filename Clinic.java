@@ -3,38 +3,57 @@ import java.util.Iterator;
 import java.util.ArrayList;
 
 public class Clinic {
+    private String name;
     private List<Doctor> doctors;
     private List<Patient> patients;
     private List<Appointment> appointments;
 
-    public Clinic() {
+    public Clinic(String name) {
+        this.setName(name);
         this.doctors = new ArrayList<Doctor>();
         this.patients = new ArrayList<Patient>();
         this.appointments = new ArrayList<Appointment>();
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public void addDoctor(Doctor doctor) {
-        this.doctors.add(doctor);
+        if(
+            doctor != null && 
+            !this.doctors.contains(doctor)
+        ) this.doctors.add(doctor);
     }
 
     public void addPatient(Patient patient) {
-        this.patients.add(patient);
+        if(
+            patient != null &&
+            !this.patients.contains(patient)
+        ) this.patients.add(patient);
     }
 
     public void addAppointment(Appointment appointment) {
-        this.appointments.add(appointment);
+        if(
+            appointment != null &&
+            !this.appointments.contains(appointment)
+        ) this.appointments.add(appointment);
     }
 
-    public List<Doctor> getDoctors() {
-        return this.doctors;
+    public String getName() {
+        return this.name;
     }
 
-    public List<Patient> getPatients() {
-        return this.patients;
+    public Doctor[] getDoctors() {
+        return (Doctor[]) this.doctors.toArray();
     }
 
-    public List<Appointment> getAppointments() {
-        return this.appointments;
+    public Patient[] getPatients() {
+        return (Patient[]) this.patients.toArray();
+    }
+
+    public Appointment[] getAppointments() {
+        return (Appointment[]) this.appointments.toArray();
     }
 
 }
