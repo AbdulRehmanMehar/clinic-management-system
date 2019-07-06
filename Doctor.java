@@ -1,11 +1,10 @@
-import java.util.List;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.ArrayList;
 
 public class Doctor extends Role {
     private String specialization;
-    private List<Availability> availabilities;
+    private ArrayList<Availability> availabilities;
 
     public Doctor(Clinic clinic, Person person, String specialization) {
         super(clinic, person);
@@ -18,6 +17,7 @@ public class Doctor extends Role {
         this.specialization = specialization;
     }
 
+    @Override
     public void addAppointment(Appointment appointment) {
         boolean available = false;
         Iterator<Availability> itr = this.availabilities.iterator();
@@ -36,13 +36,21 @@ public class Doctor extends Role {
 
     }
 
+    @Override
+    public void cancelAppointment(Appointment appointment) {
+        if (super.appointments.remove(appointment)) {
+            this.getClinic().removeAppointment(appointment);
+        }
+    }
+
     public void addAvailability(Availability availability) {
         if (!this.availabilities.contains(availability))
             this.availabilities.add(availability);
     }
 
-    public Appointment[] getAppointments() {
-        return Arrays.copyOf(super.appointments.toArray(), super.appointments.size(), Appointment[].class);
+    public void removeAvailability(Availability availability) {
+        if (this.availabilities.remove(availability))
+            availability = null;
     }
 
     public Availability[] getAvailabilities() {
@@ -53,6 +61,7 @@ public class Doctor extends Role {
         return this.specialization;
     }
 
+    @Override
     public String getRole() {
         return "Doctor";
     }

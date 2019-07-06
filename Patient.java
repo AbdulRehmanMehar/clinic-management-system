@@ -12,20 +12,25 @@ public class Patient extends Role {
     public void setDisease(String disease) {
         this.disease = disease;
     }
-
+    
+    @Override
     public void addAppointment(Appointment appointment) {
         if (!super.appointments.contains(appointment))
             super.appointments.add(appointment);
+    }
+
+    @Override
+    public void cancelAppointment(Appointment appointment) {
+        if (super.appointments.remove(appointment)) {
+            this.getClinic().removeAppointment(appointment);
+        }
     }
 
     public String getDisease() {
         return this.disease;
     }
 
-    public Appointment[] getAppointments() {
-        return Arrays.copyOf(super.appointments.toArray(), super.appointments.size(), Appointment[].class);
-    }
-
+    @Override
     public String getRole() {
         return "Patient";
     }

@@ -1,5 +1,4 @@
 import java.util.Date;
-import java.util.List;
 import java.util.Arrays;
 import java.util.ArrayList;
 import java.text.SimpleDateFormat;
@@ -11,7 +10,7 @@ public class Appointment {
     private Clinic clinic;
     private Doctor doctor;
     private Patient patient;
-    private List<Medicine> medicines;
+    private ArrayList<Medicine> medicines;
     private SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
 
     public Appointment(Clinic clinic, Doctor doctor, Patient patient, String day, String timeStart, String timeEnd) {
@@ -64,6 +63,13 @@ public class Appointment {
             medicine != null &&
             !this.medicines.contains(medicine)
         ) this.medicines.add(medicine);
+    }
+
+    public void removeMedicine(Medicine medicine) {
+        if (this.medicines.contains(medicine)){
+            this.medicines.remove(medicine);
+            medicine = null;
+        }
     }
 
     public Medicine[] getMedicines() {

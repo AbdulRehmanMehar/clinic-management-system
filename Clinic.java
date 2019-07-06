@@ -1,12 +1,12 @@
-import java.util.List;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.ArrayList;
 
 public class Clinic {
     private String name;
-    private List<Doctor> doctors;
-    private List<Patient> patients;
-    private List<Appointment> appointments;
+    private ArrayList<Doctor> doctors;
+    private ArrayList<Patient> patients;
+    private ArrayList<Appointment> appointments;
 
     public Clinic(String name) {
         this.setName(name);
@@ -40,20 +40,40 @@ public class Clinic {
         ) this.appointments.add(appointment);
     }
 
+    public void removeDoctor(Doctor doctor) {
+        if (this.doctors.remove(doctor)) {
+            doctor = null;
+        }
+    }
+
+    public void removePatient(Patient patient) {
+        if (this.patients.remove(patient)) {
+            patient = null;
+        }
+    }
+
+    public void removeAppointment(Appointment appointment) {
+        if (this.appointments.remove(appointment)) {
+            appointment.getDoctor().getAppointments().remove(appointment);
+            appointment.getPatient().getAppointments().remove(appointment);
+            appointment = null;
+        }
+    }
+
     public String getName() {
         return this.name;
     }
 
     public Doctor[] getDoctors() {
-        return (Doctor[]) this.doctors.toArray();
+        return Arrays.copyOf(this.doctors.toArray(), this.doctors.size(), Doctor[].class);
     }
 
     public Patient[] getPatients() {
-        return (Patient[]) this.patients.toArray();
+        return Arrays.copyOf(this.patients.toArray(), this.patients.size(), Patient[].class);
     }
 
     public Appointment[] getAppointments() {
-        return (Appointment[]) this.appointments.toArray();
+        return Arrays.copyOf(this.appointments.toArray(), this.appointments.size(), Appointment[].class);
     }
 
 }

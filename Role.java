@@ -1,10 +1,9 @@
-import java.util.List;
 import java.util.ArrayList;
 
 public abstract class Role {
     private Clinic clinic;
     private Person person;
-    protected List<Appointment> appointments;
+    protected ArrayList<Appointment> appointments;
 
     public Role(Clinic clinic, Person person) {
         this.person = person;
@@ -20,9 +19,13 @@ public abstract class Role {
         return this.person;
     }
 
+    public ArrayList<Appointment> getAppointments() {
+        return this.appointments;
+    }
+
     public abstract String getRole();
     
     public abstract void addAppointment(Appointment appointment);
 
-    public abstract Appointment[] getAppointments();
+    public abstract void cancelAppointment(Appointment appointment);
 }
