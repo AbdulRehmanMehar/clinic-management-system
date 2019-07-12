@@ -17,15 +17,27 @@ public class Availability {
 
     public void setDoctor(Doctor doctor) {
         this.doctor = doctor;
-        doctor.addAvailability(this);
+        if (doctor != null)
+            doctor.addAvailability(this);
     }
 
     public void setDay(String day) {
+        if (this.doctor.getAppointments().size() > 0 && this.day != null && this.day != day) {
+            for (Appointment appointment : this.doctor.getAppointments()) {
+                if (appointment.getDay().equals(day)) this.doctor.cancelAppointment(appointment);
+            }
+        }
         this.day = day;
     }
 
     public void setTimeIn(String timeIn) {
         try{
+            if (this.doctor.getAppointments().size() > 0 && this.day != null && this.day != day) {
+                for (Appointment appointment : this.doctor.getAppointments()) {
+                    if (appointment.getDay().equals(this.day) && appointment.getTimeStart() >= this.getTimeIn())
+                        this.doctor.cancelAppointment(appointment);
+                }
+            }   
             this.timeIn = this.sdf.parse(timeIn);
         }catch(Exception e) {
             System.out.println("Time Date parse Exception " + e + " in setTimeIn => Availability.");
@@ -34,6 +46,12 @@ public class Availability {
 
     public void setTimeOut(String timeOut) {
         try{
+            if (this.doctor.getAppointments().size() > 0 && this.day != null && this.day != day) {
+                for (Appointment appointment : this.doctor.getAppointments()) {
+                    if (appointment.getDay().equals(this.day) && appointment.getTimeEnd() <= this.getTimeOut())
+                        this.doctor.cancelAppointment(appointment);
+                }
+            }
             this.timeOut = this.sdf.parse(timeOut);
         }catch(Exception e) {
             System.out.println("Time Date parse Exception " + e + " in setTimeOut => Availability.");

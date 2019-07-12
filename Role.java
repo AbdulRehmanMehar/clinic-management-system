@@ -6,9 +6,23 @@ public abstract class Role {
     protected ArrayList<Appointment> appointments;
 
     public Role(Clinic clinic, Person person) {
-        this.person = person;
-        this.clinic = clinic;
+        this.setClinic(clinic);
+        this.setPerson(person);
         this.appointments = new ArrayList<Appointment>();
+    }
+
+    public void setClinic(Clinic clinic) {
+        this.clinic = clinic;
+        if (clinic != null) {
+            clinic.addRole(this);
+        }
+    }
+
+    public void setPerson(Person person) {
+        this.person = person;
+        if (person != null) {
+            person.addRole(this);
+        }
     }
 
     public Clinic getClinic() {

@@ -25,17 +25,20 @@ public class Appointment {
 
     public void setClinic(Clinic clinic) {
         this.clinic = clinic;
-        clinic.addAppointment(this);
+        if (clinic != null)
+            clinic.addAppointment(this);
     }
 
     public void setDoctor(Doctor doctor) {
         this.doctor = doctor;
-        doctor.addAppointment(this);
+        if (doctor != null)
+            doctor.addAppointment(this);
     }
 
     public void setPatient(Patient patient) {
         this.patient = patient;
-        patient.addAppointment(this);
+        if (patient != null)
+            patient.addAppointment(this);
     }
 
     public void setDay(String day) {

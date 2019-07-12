@@ -6,7 +6,7 @@ public class Patient extends Role {
     public Patient(Clinic clinic, Person person, String disease) {
         super(clinic, person);
         this.setDisease(disease);
-        clinic.addPatient(this);
+        // clinic.addPatient(this);
     }
 
     public void setDisease(String disease) {

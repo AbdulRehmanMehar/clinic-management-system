@@ -10,7 +10,7 @@ public class Doctor extends Role {
         super(clinic, person);
         this.setSpecialization(specialization);
         this.availabilities = new ArrayList<Availability>();
-        clinic.addDoctor(this);
+        // clinic.addDoctor(this);
     }
 
     public void setSpecialization(String specialization) {
@@ -39,8 +39,10 @@ public class Doctor extends Role {
     }
 
     public void addAvailability(Availability availability) {
-        if (!this.availabilities.contains(availability))
+        if (!this.availabilities.contains(availability)) {
             this.availabilities.add(availability);
+            availability.setDoctor(this);
+        }
     }
 
     public void removeAvailability(Availability availability) {
