@@ -65,7 +65,10 @@ public class Appointment {
         if (
             medicine != null &&
             !this.medicines.contains(medicine)
-        ) this.medicines.add(medicine);
+        ) {
+            this.medicines.add(medicine);
+            medicine.setAppointment(this);
+        }
     }
 
     public void removeMedicine(Medicine medicine) {
@@ -73,6 +76,14 @@ public class Appointment {
             this.medicines.remove(medicine);
             medicine = null;
         }
+    }
+
+    public void cancel() {
+        for (Medicine medicine : this.medicines) {
+            medicine.removeAppointment();
+        }
+        this.medicines = null;
+        this.clinic.removeAppointment(this);
     }
 
     public Medicine[] getMedicines() {
@@ -101,6 +112,14 @@ public class Appointment {
 
     public long getTimeEnd() {
         return this.timeEnd.getTime();
+    }
+
+    public Date getTimeStartDate() {
+        return this.timeStart;
+    }
+
+    public Date getTimeEndDate() {
+        return this.timeEnd;
     }
 
 }
