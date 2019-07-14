@@ -16,6 +16,10 @@ public class Medicine {
         }
     }
 
+    public void removeAppointment() {
+        this.appointment = null;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
